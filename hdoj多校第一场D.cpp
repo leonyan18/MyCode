@@ -21,28 +21,28 @@ int main(){
 		int n,m;
 		clr(ans);
 		cin>>n>>m;
-		rep(i,1,n+1) pre[i]=i;
+		rep(i,1,n+1) pre[i]=i;//初始化左边的端点 
 		rep(i,0,m){
 			int l,r;
 			cin>>l>>r;
-			pre[r]=min(pre[r],l);
+			pre[r]=min(pre[r],l); 
 		}
 		per(i,1,n){
-			pre[i]=min(pre[i],pre[i+1]);
+			pre[i]=min(pre[i],pre[i+1]);//倒着更新左边的端点 
 		}
 		set<int> v;
 		v.clear();
-		int pos=1;
+		int pos=1;//下标 
 		rep(i,1,n){
-			v.insert(i);
+			v.insert(i);//初始化set里面的数字 
 		}
 		rep(i,1,n+1){
-			while(pos<pre[i]){
+			while(pos<pre[i]){//pos小于左边的区间说明前面的数字要加回set里 
 				v.insert(ans[pos]);
 				pos++;
 			}
-			ans[i]=*v.begin();
-			v.erase(ans[i]);
+			ans[i]=*v.begin();//等于set里最小的 
+			v.erase(ans[i]);//擦去这个数 
 		}
 		rep(i,1,n+1){
 			cout<<ans[i];
