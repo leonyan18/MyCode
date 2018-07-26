@@ -20,7 +20,7 @@ const int N=101000;
 struct node {
 	int fg;//标记 
 	int s;
-	int mv;/最小值 
+	int mv;//最小值 
 }nd[4*N];
 int b[N],n,m,l,r;
 char s[20];
