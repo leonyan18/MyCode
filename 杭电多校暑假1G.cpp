@@ -34,8 +34,8 @@ int main(){
         {//e是最后一个出现位置 step是第几个项  s是第一项 
             ll s=f[i-1],step=(now-s)/f[i]+1,e=(step-1)*f[i]+s; 
             ll haha=(s+e)%mod*(step%mod)%mod*inv%mod;//sn等差数列的和 inv取逆元 
-            ans=(ans+haha*i%mod)%mod;//i重复次数 
-            num+=step*i;//num是记录的个数 
+            ans=(ans+haha*i%mod)%mod;//i重复次数
+            num+=step*i;//num是记录的个数
         }
 //        cout<<"pos  "<<pos<<endl; 
         ans=(ans+1+(n-num-1)%mod*(pos%mod)%mod)%mod;//(n-num-1)缺少的个数 因为多了个1 
