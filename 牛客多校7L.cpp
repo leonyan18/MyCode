@@ -50,13 +50,26 @@ int main(){
 			b[i][j].y=min(b[i][j].y,b[i-1][j].y+1);
 		}
 	}
+//	rep(i,1,n+1){
+//		rep(j,1,m+1){
+//			cout<<b[i][j].x<<","<<b[i][j].y<<"   ";
+//		}
+//		cout<<endl;
+//	} 
 	ll sum=0;
 	rep(i,1,n+1){
 		rep(j,1,m+1){
 			sum+=b[i][j].x+b[i][j].y;
 			int temp=b[i][j].x;
 			rep(k,1,b[i][j].y+1){
-				temp=min(temp,b[i-k][j].x);
+				int g=1;
+				for(g=1;g<=b[i-k][j].x;g++){
+					if(b[i][j-g].y<g){
+						break;
+					}
+				}
+				temp=min(temp,g-1);
+//				cout<<temp<<" "<<i<<" "<<j<<" "<<endl;
 				sum+=temp;
 			}
 		}
