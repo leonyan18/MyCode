@@ -5,63 +5,30 @@ typedef long long ll;
 #define rep(i,a,n) for (int i=a;i<n;i++)
 #define per(i,a,n) for (int i=n-1;i>=a;i--)
 #define clr(x) memset(x,0,sizeof(x))
-const int INF=0x3f3f3f3f;
-char a[1005][1005];
-int dp[1005][1005];
-struct pos{
-	int x,y;
-}b[1005][1005];
 int main(){
 	//本地测试
 	#ifdef ONLINE_JUDGE
 	#else
-    freopen("C://Users//yan//Desktop//in.txt","r",stdin);
+    freopen("C://Users//yan//Desktop//in.txt","w",stdout);
 	#endif
 	ios::sync_with_stdio(false);//取消同步
 	std::cin.tie(0);//解除cin与cout的绑定，进一步加快执行效率。
-	int n,m;
-	cin>>n>>m;
-	clr(a);
-	clr(b);
-	rep(i,1,n+1){
-		rep(j,1,m+1){
-			cin>>a[i][j];
-		}
-	}
-	rep(i,1,n+1){
-		rep(j,1,m+1){
-			for(int k=1;k<=52&&k<i;k++){
-				if(a[i][j]!=a[i-k][j]){
-					b[i][j].y=k;
-				}
-				else{
-					break;
-				}
+	srand((unsigned)time(NULL));
+	cout<<"1000 1000"<<endl;
+	rep(i,0,1000){
+		rep(j,0,1000){
+			char c;
+			if(rand()%2==0){
+				c='A'+rand()%26;
+				cout<<c;
 			}
-			for(int k=1;k<=52&&k<j;k++){
-				if(a[i][j]!=a[i][j-k]){
-					b[i][j].x=k;
-				}
-				else{
-					break;
-				}
-			}
-			b[i][j].x=min(b[i][j].x,b[i][j-1].x+1);
-			b[i][j].y=min(b[i][j].y,b[i-1][j].y+1);
-		}
-	}
-	ll sum=0;
-	rep(i,1,n+1){
-		rep(j,1,m+1){
-			sum+=b[i][j].x+b[i][j].y;
-			int temp=b[i][j].x;
-			rep(k,1,b[i][j].y+1){
-				temp=min(temp,b[i-k][j].x);
-				sum+=temp;
+			else{
+				c='a'+rand()%26;
+				cout<<c;
 			}
 		}
-	}
-	cout<<sum+n*m<<endl;
+		cout<<endl;
+	} 
 }
 
 
