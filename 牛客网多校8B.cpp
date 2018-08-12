@@ -6,12 +6,10 @@ const int MOD = 998244353;
  
 int main() {
 #ifndef ONLINE_JUDGE
-//    freopen("","r",stdin);
-    freopen(R"(D:\ACM\CLionProject\code\nower_coder\Multi_University_Training_Contest\2018\eight\output.txt)", "w",
-            stdout);
+freopen("C://Users//yan//Desktop//in.txt","r",stdin);
 #endif
     ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
+    std::cin.tie(0);
     int n;
     cin >> n;
     vector<LL> inv(n + 5ULL), ans(n + 5ULL);
