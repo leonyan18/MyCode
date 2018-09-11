@@ -13,11 +13,9 @@ const int maxn=1e5+5;
 struct node{
 	int pos;
 	int w;
-	node(){
-		
+	node(){		
 	}
-	node(int pos,int w):pos(pos),w(w){
-		
+	node(int pos,int w):pos(pos),w(w){	
 	}
 	bool operator < (const node & a) const
     {
