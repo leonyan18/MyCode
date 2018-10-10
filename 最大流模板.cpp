@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include<bits/stdc++.h>
 using namespace std;
 const double PI=acos(-1.0);
@@ -7,6 +8,17 @@ typedef long long ll;
 #define clr(x) memset(x,0,sizeof(x))
 const int INF=0x3f3f3f3f;
 const int maxn=1e5+5;
+=======
+#include<iostream>
+#include<cstdio>
+#include<cstring>
+#include<cmath>
+#include<algorithm>
+#include<queue>
+#include<climits>
+using namespace std;
+ 
+>>>>>>> b1248014028b5e7ade72c8fb6be440bc9e14383e
 #define N 16
 int capacity[N][N];//容量
 int flow[N];//残余流量
@@ -33,10 +45,17 @@ int BFS(int src, int des) {
             break;
         }
         for (int i = 1; i < n + 1; i++) {
+<<<<<<< HEAD
             if (i != src && capacity[index][i] > 0 && pre[i] == -1) {//前驱不是-1 
                 pre[i] = index;//节点前驱 
                 //增广路残容流量
                 flow[i] = min(capacity[index][i], flow[index]);//流量取小的 
+=======
+            if (i != src && capacity[index][i] > 0 && pre[i] == -1) {
+                pre[i] = index;
+                //增广路残容流量
+                flow[i] = min(capacity[index][i], flow[index]);
+>>>>>>> b1248014028b5e7ade72c8fb6be440bc9e14383e
                 Q.push(i);
             }
         }
@@ -55,8 +74,13 @@ int MaxFlow(int src, int des) {
             int k = des;  //利用前驱寻找路径 
             while (k != src) {
                 int last = pre[k];
+<<<<<<< HEAD
                 capacity[last][k] -= aug;//正向流量 
                 capacity[k][last] += aug;//逆向流量 
+=======
+                capacity[last][k] -= aug;
+                capacity[k][last] += aug;
+>>>>>>> b1248014028b5e7ade72c8fb6be440bc9e14383e
                 k = last;
             }
             sumflow += aug;
@@ -65,10 +89,13 @@ int MaxFlow(int src, int des) {
 }
              
 int main() {
+<<<<<<< HEAD
 	#ifdef ONLINE_JUDGE
 	#else
     freopen("C://Users//11835//Desktop//in.txt","r",stdin);
 	#endif
+=======
+>>>>>>> b1248014028b5e7ade72c8fb6be440bc9e14383e
     int cas, cases = 1;
     scanf("%d", &cas);
     while (cas--) {
