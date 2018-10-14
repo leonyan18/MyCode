@@ -7,12 +7,20 @@ typedef long long ll;
 #define clr(x) memset(x,0,sizeof(x))
 const int INF=0x3f3f3f3f;
 const int maxn=1e5+5;
+int n,m,k;
 struct node{
 	double x;
 	double y;
 };
+
+vector mp[55][55];
 node r[maxn],c[maxn];
 bool vis[maxn];
+i
+nt dfs(int pos,int num){
+	if(pos>n||num>k)
+	return;	
+} 
 int main(){
 	//本地测试
 	#ifdef ONLINE_JUDGE
@@ -25,8 +33,7 @@ int main(){
 	cin>>t;
 	while(t--){
 		clr(r);
-		clr(c); 
-		int n,m,k;
+		clr(c);
 		cin>>n>>m>>k;
 		rep(i,0,n){
 			cin>>c[i].x>>c[i].y;//城市 
@@ -42,13 +49,14 @@ int main(){
 			int flag=0;
 //			cout<<"mid  "<<mid<<endl;
 			rep(i,0,n){
+				mp[i].clear();
 				flag=0;
 				rep(j,0,m){
 					double dis=(r[j].x-c[i].x)*(r[j].x-c[i].x)+(r[j].y-c[i].y)*(r[j].y-c[i].y);
 //					cout<<i<<" "<<j<<" "<<sqrt(dis)<<endl;
 					if(mid>=sqrt(dis)){
 						flag=1;
-						vis[j]=1;
+						mp[i].push_back(j);
 					}
 				}
 				if(flag)
@@ -62,8 +70,6 @@ int main(){
 					sumr++;
 			}
 		    if(sumc==n)
-		    
-		    
 				ri=mid;
 			else 
 				le=mid;
