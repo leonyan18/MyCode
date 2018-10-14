@@ -17,7 +17,7 @@ int main(){
 	//本地测试
 	#ifdef ONLINE_JUDGE
 	#else
-    freopen("C://Users//11835//Desktop//in.txt","r",stdin);
+    freopen("C://Users//yan//Desktop//in.txt","r",stdin);
 	#endif
 	ios::sync_with_stdio(false);//取消同步
 	std::cin.tie(0);//解除cin与cout的绑定，进一步加快执行效率。
@@ -62,8 +62,6 @@ int main(){
 					sumr++;
 			}
 		    if(sumc==n)
-		    
-		    
 				ri=mid;
 			else 
 				le=mid;
