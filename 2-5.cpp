@@ -50,15 +50,13 @@ ll bigmul(int n,ll u,ll v){
 	return ans;
 }
 int main(){
-	//本地测试
-	#ifdef ONLINE_JUDGE
-	#else
-    freopen("C://Users//yan//Desktop//in.txt","r",stdin);
-	#endif
-	ios::sync_with_stdio(false);//取消同步
-	std::cin.tie(0);//解除cin与cout的绑定，进一步加快执行效率。
+    freopen("out2-5.txt","w",stdout);
 	cout<<(ll)123456*987654<<endl;
 	cout<<bigmul(6,123456,987654)<<endl;
+	cout<<(ll)127896*982234<<endl;
+	cout<<bigmul(6,127896,982234)<<endl;
+	cout<<(ll)982234*987654<<endl;
+	cout<<bigmul(6,982234,987654)<<endl;
 }
 
 

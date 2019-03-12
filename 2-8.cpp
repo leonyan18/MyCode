@@ -13,13 +13,8 @@ int arrayswap(int n,int k){
 	}
 }
 int main(){
-	//本地测试
-	#ifdef ONLINE_JUDGE
-	#else
-    freopen("C://Users//yan//Desktop//in.txt","r",stdin);
-	#endif
-	ios::sync_with_stdio(false);//取消同步
-	std::cin.tie(0);//解除cin与cout的绑定，进一步加快执行效率。
+	srand(time(NULL));
+    freopen("out2-8.txt","w",stdout);
 	rep(i,0,30)
 		a[i]=rand();
 	rep(i,0,30)

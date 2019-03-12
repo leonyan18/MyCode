@@ -64,7 +64,7 @@ void LinkMerge(node* l,node* m,node* r)
 	node *i=l;
 	node *j=m;
 	node *temp=result;
-	while(i!=m&&j!=k){
+	while(i!=m&&j!=k){ 
 		if(i->value>j->value){
 			temp->value=j->value;
 			temp->next=new node;
@@ -84,7 +84,7 @@ void LinkMerge(node* l,node* m,node* r)
 			temp->next=new node;
 			temp=temp->next;
 			temp->next=NULL;
-			temp->value=-1*INF;
+			temp->value=-1*INF;//最后一个会补多所以先设置然后再后面去掉 
 			i=i->next;
 		}
 	}
@@ -100,7 +100,7 @@ void LinkMerge(node* l,node* m,node* r)
 	}
 	l->value=result->value;
 	l->next=result->next;
-	while(result!=r){
+	while(result!=r){//去掉不需要的值 
 		if(result->next->value==-1*INF){
 			result->next=r;
 		}
@@ -113,7 +113,7 @@ void LinkMergeSort(node *a)
 		int len=1;
 		numl[0]=a;
 		node *last=a;
-		while(last->next!=NULL){
+		while(last->next!=NULL){//分出有序子段 
 			node *nxt=last->next;
 			if(last->value>nxt->value)
 				numl[len++]=nxt;
@@ -130,14 +130,9 @@ void LinkMergeSort(node *a)
 	}
 }
 int main(){
-	//本地测试
-	#ifdef ONLINE_JUDGE
-	#else
-    freopen("C://Users//11835//Desktop//in.txt","r",stdin);
-	#endif
-	ios::sync_with_stdio(false);//取消同步
-	std::cin.tie(0);//解除cin与cout的绑定，进一步加快执行效率。
-	int a[]={1,5,9,3,5,7,8,4,2,6,9,6};
+	srand(time(NULL));
+    freopen("out2-11.txt","w",stdout);
+	int a[]={rand(),rand(),rand(),rand(),rand(),rand(),rand(),rand(),rand(),rand(),rand(),rand()};
 	node *head=new node;
 	head->value=a[0];
 	node *last=head;
