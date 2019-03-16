@@ -23,10 +23,10 @@ int main(){
 		sum+=a[i];
 		maxv=max(maxv,sum);
 		len++;
-		while(len>0&&(sum<0||a[i-len+1]<0)){
-			sum-=a[i-len+1];
-			len--;
-		}
+		if(sum<0){
+			sum=0;
+			len=0;
+		} 
 		if(len==n){
 			sum-=a[i-len+1];
 			len--;
