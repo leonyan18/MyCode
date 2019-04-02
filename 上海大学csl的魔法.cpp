@@ -7,31 +7,17 @@ typedef long long ll;
 #define clr(x) memset(x,0,sizeof(x))
 const int INF=0x3f3f3f3f;
 const int maxn=1000005;
-ll a[maxn];
+int a 
 int main(){
+	//本地测试
 	#ifdef ONLINE_JUDGE
 	#else
     freopen("C://Users//yan//Desktop//in.txt","r",stdin);
 	#endif
-	int n;
-	cin>>n;
-	ll maxv=0;
-	rep(i,1,n+1){
-		cin>>a[i];
-		maxv=max(maxv,a[i]);
-		a[n+i]=a[i];
-	}
-	ll sum=0;
-	ll len=0;
-	rep(i,1,2*n+1){
-		sum+=a[i];
-		len++;
-		if(len<=n)
-			maxv=max(maxv,sum);
-		if(sum<0){
-			sum=0;
-			len=0;
-		}
-	}
-	cout<<maxv<<endl;
+	ios::sync_with_stdio(false);//取消同步
+	std::cin.tie(0);//解除cin与cout的绑定，进一步加快执行效率。
+	int  
 }
+
+
+

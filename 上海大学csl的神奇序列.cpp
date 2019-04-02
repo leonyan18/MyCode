@@ -7,31 +7,26 @@ typedef long long ll;
 #define clr(x) memset(x,0,sizeof(x))
 const int INF=0x3f3f3f3f;
 const int maxn=1000005;
+const int mod=998244353;
 ll a[maxn];
 int main(){
+	//±¾µØ²âÊÔ
 	#ifdef ONLINE_JUDGE
 	#else
     freopen("C://Users//yan//Desktop//in.txt","r",stdin);
 	#endif
-	int n;
-	cin>>n;
-	ll maxv=0;
-	rep(i,1,n+1){
-		cin>>a[i];
-		maxv=max(maxv,a[i]);
-		a[n+i]=a[i];
+	int w,q;
+	cin>>w>>q;
+	a[1]=w;
+	rep(i,2,1000005){
+		a[i]=a[i-1]*(i*2-1)%mod;
 	}
-	ll sum=0;
-	ll len=0;
-	rep(i,1,2*n+1){
-		sum+=a[i];
-		len++;
-		if(len<=n)
-			maxv=max(maxv,sum);
-		if(sum<0){
-			sum=0;
-			len=0;
-		}
+	while(q--){
+		int pos;
+		cin>>pos;
+		cout<<a[pos]<<endl;
 	}
-	cout<<maxv<<endl;
 }
+
+
+
