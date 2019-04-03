@@ -1,52 +1,58 @@
-#include <algorithm>
- #include <iostream>
- #include <cstring>
- #include <climits>
- #include <cstdio>
- #include <vector>
- #include <cstdlib>
- #include <ctime>
- #include <cmath>
- #include <queue>
- #include <stack>
- #include <map>
- #include <set>
- #define fi first
- #define lc (x<<1)
- #define se second
- #define U unsigned
- #define rc (x<<1|1)
- #define Re register
- #define LL long long
- #define MP std::make_pair
- #define CLR(i,a) memset(i,a,sizeof(i))
- #define FOR(i,a,b) for(Re int i = a;i <= b;++i)
- #define ROF(i,a,b) for(Re int i = a;i >= b;--i)
- #define SFOR(i,a,b,c) for(Re int i = a;i <= b;i+=c)
- #define SROF(i,a,b,c) for(Re int i = a;i >= b;i-=c)
- #define DEBUG(x) std::cerr << #x << '=' << x << std::endl
- const int MAXN = 1000000+5;
- int N,maxL;
- std::set<std::pair<int,int> > L;
- inline int calc(){
-     // 返回 set 中所有线段的并长度。(每个 pair 表示一个线段[first,second]
- }
- int main(){
-     scanf("%d%d",&N,&maxL);
-     while(N--){
-         int opt,x,y;
-         scanf("%d%d%d",&opt,&x,&y);
-         if(opt == 1){
-             if(L.find(MP(x,y)) != L.end()) continue;
-             L.insert(MP(x,y));
-         }
-         if(opt == 2){
-             if(L.find(MP(x,y)) == L.end()) continue;
-             L.erase(MP(x,y));
-         }
-         if(opt == 3){
-             printf("%d\n",calc());
-         }
-     }
-     return 0;
- }
+
+#include<iostream>
+#include<map>
+#include<set>
+#include<string>
+using namespace std;
+struct Peoson {
+	char sex;
+	string father;
+};
+map<string, Peoson> people;
+int judge(string a, string b) {
+	set<string> s;
+	int sum1=0;
+	int sum2=0;
+	s.clear();
+	while(1){
+		if(!a.empty()){
+			s.insert(a);
+			sum1++;
+			a = people[a].father;
+		}
+		if(!b.empty()){
+			s.insert(b);
+			sum2++;
+			b = people[b].father;
+		}
+		if (sum1 >= 5 && sum2 >= 5)		break;	//双方都超出5代之后，不需要继续寻找（测试点6 运行超时）
+		if (sum1+sum2 != s.size() && (sum1 < 5 || sum2 < 5))     //五代内出现共同祖先，返回false（测试点3、6答案错误）
+			return 0;
+		if(b.empty()&&a.empty()){
+			break;
+		}
+	}
+	return 1;
+}
+int main() {
+	int n, m;
+	string str, a, b;
+	cin.sync_with_stdio(false);
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		cin >> a >> b;
+		if (b.back() == 'n') 				//儿子
+			people[a] = { 'm',b.substr(0,b.size() - 4) };
+		else if (b.back() == 'r')			//女儿
+			people[a] = { 'f',b.substr(0, b.size() - 7) };
+		else	people[a].sex = b.back();	//其他人
+	}
+	cin >> m;
+	for (int i = 0; i < m; i++) {
+		cin >> a >> str >> b >> str;  //姓氏没有用
+		if (people.find(a) == people.end() || people.find(b) == people.end())		printf("NA\n");
+		else if (people[a].sex == people[b].sex)		printf("Whatever\n");
+		else	printf("%s\n", judge(a, b) ? "Yes" : "No");
+	}
+	return 0;
+}

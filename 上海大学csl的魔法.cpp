@@ -16,7 +16,6 @@ int main(){
 	#endif
 	ios::sync_with_stdio(false);//取消同步
 	std::cin.tie(0);//解除cin与cout的绑定，进一步加快执行效率。
-	int  
 }
 
 
