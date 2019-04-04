@@ -1,58 +1,88 @@
+#include <cstdio>
+#include <cstring>
 
-#include<iostream>
-#include<map>
-#include<set>
-#include<string>
-using namespace std;
-struct Peoson {
-	char sex;
-	string father;
-};
-map<string, Peoson> people;
-int judge(string a, string b) {
-	set<string> s;
-	int sum1=0;
-	int sum2=0;
-	s.clear();
-	while(1){
-		if(!a.empty()){
-			s.insert(a);
-			sum1++;
-			a = people[a].father;
-		}
-		if(!b.empty()){
-			s.insert(b);
-			sum2++;
-			b = people[b].father;
-		}
-		if (sum1 >= 5 && sum2 >= 5)		break;	//双方都超出5代之后，不需要继续寻找（测试点6 运行超时）
-		if (sum1+sum2 != s.size() && (sum1 < 5 || sum2 < 5))     //五代内出现共同祖先，返回false（测试点3、6答案错误）
-			return 0;
-		if(b.empty()&&a.empty()){
-			break;
-		}
-	}
-	return 1;
+const int maxn = 200;
+char s[maxn + 10];
+int g[maxn + 10], ans[maxn + 10];
+bool vis[maxn + 10];
+
+bool winning(const char* s)
+{
+    int n = strlen(s);
+    for(int i = 0; i < n-2; i++)//已经有三个相邻的X，先手输
+        if(s[i] == 'X' && s[i+1] == 'X' && s[i+2] == 'X') return false;
+
+    bool no[n+1];
+    memset(no, false, sizeof(no));
+    for(int i = 0; i < n; i++) if(s[i] == 'X')
+    {
+        for(int d = -2; d <= 2; d++)
+        {
+            if(i+d >= 0 && i+d < n)
+            {
+                if(d != 0 && s[i+d] == 'X') return true;//有两个X在彼此的禁区，先手胜
+                no[i+d] = true;//设置禁区
+            }
+        }
+    }
+
+    no[n] = 1;
+    int sg = 0;
+    for(int i = 0; i < n; i++)
+    {
+        if(no[i]) continue;
+        int cnt = 0;
+        while(i < n && !no[i]) { i++; cnt++; }
+        sg ^= g[cnt];
+    }
+    return sg != 0;
 }
-int main() {
-	int n, m;
-	string str, a, b;
-	cin.sync_with_stdio(false);
-	cin >> n;
-	for (int i = 0; i < n; i++) {
-		cin >> a >> b;
-		if (b.back() == 'n') 				//儿子
-			people[a] = { 'm',b.substr(0,b.size() - 4) };
-		else if (b.back() == 'r')			//女儿
-			people[a] = { 'f',b.substr(0, b.size() - 7) };
-		else	people[a].sex = b.back();	//其他人
-	}
-	cin >> m;
-	for (int i = 0; i < m; i++) {
-		cin >> a >> str >> b >> str;  //姓氏没有用
-		if (people.find(a) == people.end() || people.find(b) == people.end())		printf("NA\n");
-		else if (people[a].sex == people[b].sex)		printf("Whatever\n");
-		else	printf("%s\n", judge(a, b) ? "Yes" : "No");
-	}
-	return 0;
+
+int main()
+{
+    //freopen("in.txt", "r", stdin);
+
+    g[0] = 0;
+    g[1] = g[2] = g[3] = 1;
+    for(int i = 4; i <= maxn; i++)
+    {//递推求函数g
+        memset(vis, false, sizeof(vis));
+        for(int j = 3; i-j >= 0; j++)
+        {
+            int v = 0;
+            v ^= g[i-j];
+            int x = j - 5;
+            if(x > 0) v ^= g[x];
+            vis[v] = true;
+
+            for(int j = 0; ; j++) if(!vis[j]) { g[i] = j; break; }
+        }
+    }
+
+    int T;
+    scanf("%d", &T);
+    while(T--)
+    {
+        scanf("%s", s);
+        if(!winning(s)) { printf("LOSING\n\n"); continue; }
+
+        puts("WINNING");
+        int n = strlen(s);
+        memset(ans, 0, sizeof(ans));
+        int p = 0;
+        for(int i = 0; i < n; i++) if(s[i] == '.')
+        {
+            s[i] = 'X';
+            if(!winning(s)) ans[p++] = i+1;//后继必败状态便是先手下一步的策略
+            s[i] = '.';
+        }
+        for(int i = 0; i < p; i++)
+        {
+            if(i) printf(" ");
+            printf("%d", ans[i]);
+        }
+        printf("\n");
+    }
+
+    return 0;
 }
