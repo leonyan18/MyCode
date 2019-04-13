@@ -1,87 +1,46 @@
-#include <cstdio>
-#include <cstring>
-
-const int maxn = 200;
-char s[maxn + 10];
-int g[maxn + 10], ans[maxn + 10];
-bool vis[maxn + 10];
-
-bool winning(const char* s)
+#include <bits/stdc++.h>
+#define PB push_back
+#define MP make_pair
+using namespace std;
+typedef long long LL;
+typedef pair<int,int> PII;
+#define PI acos((double)-1)
+#define E exp(double(1))
+#define K 1000000+9
+int nt[10000+1];
+char a[K],b[10001];
+//参数为模板串和next数组
+//字符串均从下标0开始
+void kmp_next(char *T,int *nt)
 {
-    int n = strlen(s);
-    for(int i = 0; i < n-2; i++)//已经有三个相邻的X，先手输
-        if(s[i] == 'X' && s[i+1] == 'X' && s[i+2] == 'X') return false;
-
-    bool no[n+1];
-    memset(no, false, sizeof(no));
-    for(int i = 0; i < n; i++) if(s[i] == 'X')
+    nt[0]=0;
+    for(int i=1,j=0,m=strlen(T);i<m;i++)
     {
-        for(int d = -2; d <= 2; d++)
-        {
-            if(i+d >= 0 && i+d < n)
-            {
-                if(d != 0 && s[i+d] == 'X') return true;//有两个X在彼此的禁区，先手胜
-                no[i+d] = true;//设置禁区
-            }
-        }
+        while(j&&T[i]!=T[j])j=nt[j-1];
+        if(T[i]==T[j])j++;
+        nt[i]=j;
     }
-
-    no[n] = 1;
-    int sg = 0;
-    for(int i = 0; i < n; i++)
-    {
-        if(no[i]) continue;
-        int cnt = 0;
-        while(i < n && !no[i]) { i++; cnt++; }
-        sg ^= g[cnt];
-    }
-    return sg != 0;
 }
-
-int main()
+int kmp(char *S,char *T,int *nt)
 {
-    //freopen("in.txt", "r", stdin);
-
-    g[0] = 0;
-    g[1] = g[2] = g[3] = 1;
-    for(int i = 4; i <= maxn; i++)
-    {//递推求函数g
-        memset(vis, false, sizeof(vis));
-        for(int j = 3; i-j >= 0; j++)
-        {
-            int v = 0;
-            v ^= g[i-j];
-            int x = j - 5;
-            if(x > 0) v ^= g[x];
-            vis[v] = true;
-
-            for(int j = 0; ; j++) if(!vis[j]) { g[i] = j; break; }
-        }
-    }
-
-    int T;
-    scanf("%d", &T);
-    while(T--)
+    kmp_next(T,nt);
+    int ans=0,sn=strlen(S),tn=strlen(T);
+    for(int i=0,j=0;i<sn;i++)
     {
-        scanf("%s", s);
-        if(!winning(s)) { printf("LOSING\n\n"); continue; }
-
-        puts("WINNING");
-        int n = strlen(s);
-        memset(ans, 0, sizeof(ans));
-        int p = 0;
-        for(int i = 0; i < n; i++) if(s[i] == '.')
-        {
-            s[i] = 'X';
-            if(!winning(s)) ans[p++] = i+1;//后继必败状态便是先手下一步的策略
-            s[i] = '.';
-        }
-        for(int i = 0; i < p; i++)
-        {
-            if(i) printf(" ");
-            printf("%d", ans[i]);
-        }
-        printf("\n");
+        while(j&&S[i]!=T[j])j=nt[j-1];
+        if(S[i]==T[j])j++;
+        if(j==tn)
+            ans++;
+    }
+    return ans;
+}
+int main(void)
+{
+    int t;cin>>t;
+    while(t--)
+    {
+        scanf("%s%s",b,a);
+        printf("%d\n",kmp(a,b,nt));
     }
 
     return 0;
