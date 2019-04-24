@@ -11,6 +11,9 @@ int a[maxn];
 int sum[maxn];
 int maxv=0;
 int minv=INF;
+int sta[maxn];
+int lmin[maxn];
+int rmin[maxn];
 int main(){
 	//±¾µØ²âÊÔ
 	#ifdef ONLINE_JUDGE
@@ -26,8 +29,17 @@ int main(){
 		sum[i]=sum[i-1]+a[i];
 	}
 	int tempmin=INF;
-	
-	
+	int l=1,r=0;
+	rep(i,1,n+1){
+		int lpos=i;
+		while(r>=l&&a[sta[r]]>a[i]){
+			lpos=sta[r];
+			len--;
+		}
+		sta[len++]=i;
+		lmin[i]=lpos;
+	}
+	len=0;
 }
 
 
